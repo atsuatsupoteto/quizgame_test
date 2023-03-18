@@ -29,23 +29,23 @@ const quiz = [
   }
 ];
 
+
+
 //変数定義
 const quizLength= quiz.length;
 let quizIndex = 0;
 let score = 0;
 const $button = document.getElementsByTagName('button');
 let buttonLength = $button.length;
-
+let quizNum = 1;
 
 //クイズの問題文、選択肢を定義
 const setupQuiz = () => {
   document.getElementById('js-question').textContent = quiz[quizIndex].question;
-  let buttonIndex = 0;
-  while(buttonIndex <buttonLength){
-    $button[buttonIndex].textContent = quiz[quizIndex].answers[buttonIndex];
-    buttonIndex++;
+  for(buttonIndex=0; buttonIndex <buttonLength; buttonIndex++){
+      $button[buttonIndex].textContent = quiz[quizIndex].answers[buttonIndex];
+    }
   }
-}
 
 setupQuiz();
 
@@ -58,12 +58,14 @@ const clickHandler = (e) => {
   }else{
     window.alert('不正解！');
   }
-
   quizIndex++;
+
 
   if(quizIndex < quizLength){
     //問題がまだある場合
     setupQuiz();
+    quizNum++;
+    document.getElementById('q-count').textContent =  quizNum + '/' + quizLength;
   }else{
     //問題が最後の場合
     window.alert('終了！あなたの正解数は' + score + '/' + quizLength + 'です！');
